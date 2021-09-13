@@ -6,7 +6,7 @@ namespace SendEmail
 {
     sealed class EmailSend
     {
-        public bool SendEmail(EmailDetails sendEmail)
+        public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of=true)
         {
             try
             {
@@ -14,7 +14,7 @@ namespace SendEmail
                 {
                     Port = sendEmail.portParam,
                     Credentials = new NetworkCredential(sendEmail.SendingEmail, sendEmail.password),
-                    EnableSsl = true
+                    EnableSsl = sslOn_Of,
                 };
                 smtpClient.Send(sendEmail.SendingEmail, sendEmail.RecievingEmail, sendEmail.subject, sendEmail.body);
                 return true;

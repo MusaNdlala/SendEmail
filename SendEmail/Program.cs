@@ -10,7 +10,7 @@ namespace SendEmail
             EmailSend emailSend = new EmailSend();
             try
             {
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails("sendingemail@email.com", "password", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body")));
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails("sendingemail@gmail.com", "password", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"),true));
             }
             catch (Exception e) 
             {
