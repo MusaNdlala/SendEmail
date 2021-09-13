@@ -52,13 +52,9 @@ namespace SendEmail
                 return MediaTypeNames.Image.Tiff;
             return null;
         }
-
-        //public Attached() { }
-
-        public Attached(string url, string mediaType)
+        public Attached(string url)
         {
             this.url = url;
-            MediaType = mediaType;
         }
     }
 }

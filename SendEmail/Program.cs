@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.Configuration;
 
 namespace SendEmail
 {
@@ -10,14 +12,30 @@ namespace SendEmail
             {
                 Console.WriteLine("Sending email");
                 EmailSend emailSend = new EmailSend();
-                Attached athd = new Attached(@"C:\files\temp.txt","");
-                //athd.MediaType = @"C:\files\temp";
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu8819@gmail.com", "k5CaS4LpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"),true,athd));
+                Attached athd = new Attached(@"C:\files\temp.txt");
+
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu@gmail.com", "k5CaS4LqUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+    }
+    public class MYConfigure
+    {
+        private IConfiguration _configuration;
+        public MYConfigure(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public string getEmail()
+        {
+            return _configuration["email"];
+        }
+        public string getPassword()
+        {
+            return _configuration["password"];
         }
     }
 }
