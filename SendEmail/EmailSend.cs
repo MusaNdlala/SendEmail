@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 
 namespace SendEmail
 {
     sealed class EmailSend
     {
-        public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of=true)
+        public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of=true,Attached attached=null)
         {
             try
             {
@@ -16,7 +17,22 @@ namespace SendEmail
                     Credentials = new NetworkCredential(sendEmail.SendingEmail, sendEmail.password),
                     EnableSsl = sslOn_Of,
                 };
-                smtpClient.Send(sendEmail.SendingEmail, sendEmail.RecievingEmail, sendEmail.subject, sendEmail.body);
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(sendEmail.SendingEmail),
+                    Subject = sendEmail.subject,
+                    Body = "<h1>"+ sendEmail.body + "</h1>",
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(sendEmail.RecievingEmail);
+                if (attached !=null) {
+                    var media = MediaTypeNames.Text.Plain;
+                    var attachment = new Attachment(attached.url, media);
+                    mailMessage.Attachments.Add(attachment);
+                    smtpClient.Send(mailMessage);
+                    return true;
+                }
+                smtpClient.Send(mailMessage);
                 return true;
             }
             catch (Exception e)

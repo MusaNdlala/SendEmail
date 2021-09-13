@@ -6,11 +6,13 @@ namespace SendEmail
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Sending email");
-            EmailSend emailSend = new EmailSend();
             try
             {
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails("sendingemail@gmail.com", "password", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"),true));
+                Console.WriteLine("Sending email");
+                EmailSend emailSend = new EmailSend();
+                Attached athd = new Attached(@"C:\files\temp.txt","");
+                //athd.MediaType = @"C:\files\temp";
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu8819@gmail.com", "k5CaS4LpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"),true,athd));
             }
             catch (Exception e) 
             {
