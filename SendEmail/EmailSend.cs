@@ -26,8 +26,10 @@ namespace SendEmail
                 };
                 mailMessage.To.Add(sendEmail.RecievingEmail);
                 if (attached !=null) {
-                    var media = MediaTypeNames.Text.Plain;
-                    var attachment = new Attachment(attached.url, media);
+                    if(attached.MediaType == null)
+                        attached.MediaType = MediaTypeNames.Text.Plain;
+
+                    var attachment = new Attachment(attached.url, attached.MediaType);
                     mailMessage.Attachments.Add(attachment);
                     smtpClient.Send(mailMessage);
                     return true;

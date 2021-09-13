@@ -37,10 +37,20 @@ namespace SendEmail
         {
             if (file.Contains(".") == false)
                 return null;
-            
             var returnVal = file.Substring(file.LastIndexOf(".") + 1);
-            //var temp = MediaTypeNames;
-            return returnVal;
+            if (returnVal.ToLower() == "txt") 
+                return MediaTypeNames.Text.Plain;
+            if (returnVal.ToLower() == "rtf")
+                return MediaTypeNames.Text.RichText;
+            if (returnVal.ToLower() == "html" || returnVal.ToLower() == "htm")
+                return MediaTypeNames.Text.Html;
+            if (returnVal.ToLower() == "jpg" || returnVal.ToLower() == "jpeg")
+                return MediaTypeNames.Image.Jpeg;
+            if (returnVal.ToLower() == "gif")
+                return MediaTypeNames.Image.Gif;
+            if (returnVal.ToLower() == "tiff")
+                return MediaTypeNames.Image.Tiff;
+            return null;
         }
 
         //public Attached() { }
