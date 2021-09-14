@@ -18,7 +18,6 @@ namespace SendEmail
                 Console.WriteLine("Sending email");
                 EmailSend emailSend = new EmailSend();
                 Attached athd = new Attached(@"C:\files\temp.txt");
-
                 var mail = config["email"];
                 var paspharse = config["password"];
 
