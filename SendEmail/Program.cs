@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Configuration;
+using System.IO;
 
 namespace SendEmail
 {
@@ -21,8 +22,19 @@ namespace SendEmail
                 var mail = config["email"];
                 var paspharse = config["password"];
 
+                string FilePath = @"C:\Users\Musa\source\repos\SendEmail\SendEmail\html\EmailTEmplate1\Template.html";
+                StreamReader str = new StreamReader(FilePath);
+                string MailText = str.ReadToEnd();
+                str.Close();
+                string MyHeader = "M-Ndlala";
+                string MyMessage = "Hi this is the message";
+                string MessageHeader = "Welcome to the message";
+                MailText = MailText.Replace("[MyHeader]", MyHeader);
+                MailText = MailText.Replace("[Message]", MyMessage);
+                MailText = MailText.Replace("[MessageHeader]", MessageHeader);
+
                 //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", MailText), true, athd));
             }
             catch (Exception e)
             {
