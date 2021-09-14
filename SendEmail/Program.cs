@@ -10,11 +10,19 @@ namespace SendEmail
         {
             try
             {
+                var builder = new ConfigurationBuilder()
+                                .AddJsonFile(@"C:\Users\Musa\AppData\Roaming\Microsoft\UserSecrets\57a1ea15-aab6-45ab-a639-67e0605697d0\secrets.json");
+                var config = builder.Build();
+
                 Console.WriteLine("Sending email");
                 EmailSend emailSend = new EmailSend();
                 Attached athd = new Attached(@"C:\files\temp.txt");
 
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
+                var mail = config["email"];
+                var paspharse = config["password"];
+
+                //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
             }
             catch (Exception e)
             {

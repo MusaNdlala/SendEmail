@@ -25,6 +25,7 @@ namespace SendEmail
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(sendEmail.RecievingEmail);
+                
                 if (attached !=null) {
                     if(attached.MediaType == null)
                         attached.MediaType = MediaTypeNames.Text.Plain;
