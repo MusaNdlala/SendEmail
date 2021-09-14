@@ -33,7 +33,7 @@ namespace SendEmail
                 MailText = MailText.Replace("[MessageHeader]", MessageHeader);
 
                 //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", MailText), true, athd));
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "kmniroi@gmail.com", "subjective subject", MailText), true, athd));
             }
             catch (Exception e)
             {
@@ -41,9 +41,9 @@ namespace SendEmail
             }
         }
     }
-    public class MYConfigure
+    /*public class MYConfigure
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         public MYConfigure(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -56,5 +56,5 @@ namespace SendEmail
         {
             return _configuration["password"];
         }
-    }
+    }*/
 }

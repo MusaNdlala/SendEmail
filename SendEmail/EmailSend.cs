@@ -7,6 +7,24 @@ namespace SendEmail
 {
     sealed class EmailSend
     {
+        public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of = true) 
+        {
+            try {
+                return SendEmail(sendEmail,sslOn_Of,null);
+            }
+            catch (Exception){
+                return false;
+            }
+        }
+        public bool SendEmail(EmailDetails sendEmail, Attached attached = null)
+        {
+            try { 
+                return SendEmail(sendEmail,true,attached);
+            }
+            catch (Exception){ 
+                return false;
+            }
+        }
         public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of=true,Attached attached=null)
         {
             try
@@ -21,11 +39,14 @@ namespace SendEmail
                 {
                     From = new MailAddress(sendEmail.SendingEmail),
                     Subject = sendEmail.subject,
-                    Body = "<h1>"+ sendEmail.body + "</h1>",
+                    //Body =  sendEmail.body,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(sendEmail.RecievingEmail);
-                
+                AlternateView alternativeView = AlternateView.CreateAlternateViewFromString(sendEmail.body, null, MediaTypeNames.Text.Html);
+                //alternativeView.LinkedResources.Add(iconResource);
+                mailMessage.AlternateViews.Add(alternativeView);
+
                 if (attached !=null) {
                     if(attached.MediaType == null)
                         attached.MediaType = MediaTypeNames.Text.Plain;
