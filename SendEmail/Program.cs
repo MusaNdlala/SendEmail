@@ -18,8 +18,9 @@ namespace SendEmail
                 Console.WriteLine("Sending email");
                 EmailSend emailSend = new EmailSend();
                 Attached athd = new Attached(@"C:\files\temp.txt");
-                var mail = config["email"];
-                var paspharse = config["password"];
+
+                var mail = "Musandlovu8819@gmail.com";// config["email"];
+                var paspharse = "9dEYVBgQvth63bu";//config["password"];
 
                 string FilePath = @"C:\Users\Musa\source\repos\SendEmail\SendEmail\html\EmailTEmplate1\Template.html";
                 StreamReader str = new StreamReader(FilePath);
@@ -33,7 +34,7 @@ namespace SendEmail
                 MailText = MailText.Replace("[MessageHeader]", MessageHeader);
 
                 //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "kmniroi@gmail.com", "subjective subject", MailText), true, athd));
+                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "musandlala@yahoo.com", "subjective subject", MailText), true, null/*athd*/));
             }
             catch (Exception e)
             {
