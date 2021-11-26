@@ -11,6 +11,7 @@ namespace SendEmail
         private string RecievingEmailProp;
         private string subjectProp;
         private string bodyProp;
+        private string TemplateImageProp;
         public string SendingEmail {
             get {return SendingEmailProp; }
             set {
@@ -75,6 +76,16 @@ namespace SendEmail
                 this.bodyProp = value;
             }
         }
+        public string TemplateImage
+        {
+            get { return TemplateImageProp; }
+            set
+            {
+                if (string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Image link cannot be empty :", nameof(TemplateImageProp) + "=>" + value);
+                TemplateImageProp = value;
+            }
+        }
         public EmailDetails(string sendingEmail, string password, int portParam, string smtpParam, string recievingEmail, string subject, string body)
         {
             SendingEmail = sendingEmail;
@@ -84,6 +95,17 @@ namespace SendEmail
             RecievingEmail = recievingEmail;
             this.subject = subject;
             this.body = body;
+        }
+        public EmailDetails(string sendingEmail, string password, int portParam, string smtpParam, string recievingEmail, string subject, string body, string TemplateImage)
+        {
+            SendingEmail = sendingEmail;
+            this.password = password;
+            this.portParam = portParam;
+            this.smtpParam = smtpParam;
+            RecievingEmail = recievingEmail;
+            this.subject = subject;
+            this.body = body;
+            this.TemplateImage = TemplateImage;
         }
     }
 }

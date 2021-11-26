@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Configuration;
 using System.IO;
 
 namespace SendEmail
@@ -19,22 +18,24 @@ namespace SendEmail
                 EmailSend emailSend = new EmailSend();
                 Attached athd = new Attached(@"C:\files\temp.txt");
 
-                var mail = "Musandlovu8819@gmail.com";// config["email"];
-                var paspharse = "9dEYVBgQvth63bu";//config["password"];
+                var mail =  config["EmailAddress"];
+                var paspharse = config["EmailPassword"];
 
-                string FilePath = @"C:\Users\Musa\source\repos\SendEmail\SendEmail\html\EmailTEmplate1\Template.html";
+                string FilePath = @config["EmailHtmlTemplate"]; //"C:\Users\Musa\source\repos\SendEmail\SendEmail\html\EmailTEmplate1\Template.html";
+                string Image = @config["EmailImage"];
                 StreamReader str = new StreamReader(FilePath);
                 string MailText = str.ReadToEnd();
                 str.Close();
-                string MyHeader = "M-Ndlala";
                 string MyMessage = "Hi this is the message";
                 string MessageHeader = "Welcome to the message";
-                MailText = MailText.Replace("[MyHeader]", MyHeader);
                 MailText = MailText.Replace("[Message]", MyMessage);
                 MailText = MailText.Replace("[MessageHeader]", MessageHeader);
 
                 //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
-                Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "musandlala@yahoo.com", "subjective subject", MailText), true, null/*athd*/));
+
+                //Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "musandlala@yahoo.com", "subjective subject", MailText), true, null/*athd*/));
+                var tempMail = new EmailDetails(mail, paspharse, 587, "smtp.gmail.com", "musandlala@yahoo.com", "subjective subject", MailText, Image);
+                Console.WriteLine(emailSend.SendEmail(tempMail, true, null/*athd*/));
             }
             catch (Exception e)
             {

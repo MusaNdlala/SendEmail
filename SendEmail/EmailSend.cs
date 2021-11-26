@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -7,9 +6,7 @@ using System.Net.Mime;
 namespace SendEmail
 {
     sealed class EmailSend
-    {
-        
-        //private readonly IWebHostEnvironment _env;
+    {   
         public bool SendEmail(EmailDetails sendEmail, bool sslOn_Of = true){
             try {
                 return SendEmail(sendEmail, sslOn_Of, null);
@@ -31,27 +28,24 @@ namespace SendEmail
                 var smtpClient = new SmtpClient(sendEmail.smtpParam) {
                     Port = sendEmail.portParam,
                     Credentials = new NetworkCredential(sendEmail.SendingEmail, sendEmail.password),
-                    //EnableSsl = sslOn_Of,
-                    EnableSsl = true,
+                    EnableSsl = sslOn_Of,
                 };
                 var mailMessage = new MailMessage{
                     From = new MailAddress(sendEmail.SendingEmail),
                     Subject = sendEmail.subject,
-                    //Body =  sendEmail.body,
                     IsBodyHtml = true,
                 };
                 mailMessage.To.Add(sendEmail.RecievingEmail);
-
-                var pathurl = @"C:\Users\Musa\source\repos\SendEmail\SendEmail\html\EmailTEmplate1\images\email.png";
-
+                var pathurl = sendEmail.TemplateImage;
                 mailMessage = EmbedPictures(mailMessage, pathurl, sendEmail.body);
-                if (mailMessage == null)
+
+                if (mailMessage == null){
                     return false;
-
+                }
                 if (attached != null) {
-                    if (attached.MediaType == null)
+                    if (attached.MediaType == null){
                         attached.MediaType = "";
-
+                    }
                     var attachment = new Attachment(attached.url, attached.MediaType);
                     mailMessage.Attachments.Add(attachment);
                     smtpClient.Send(mailMessage);
@@ -60,8 +54,7 @@ namespace SendEmail
                 smtpClient.Send(mailMessage);
                 return true;
             }
-            catch (Exception e){
-                //Console.WriteLine(e.Message);
+            catch (Exception){
                 return false;
             }
         }
