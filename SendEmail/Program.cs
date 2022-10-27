@@ -21,7 +21,6 @@ namespace SendEmail
                 var mail = config["email"];
                 var paspharse = config["password"];
 
-                //Console.WriteLine(emailSend.SendEmail(new EmailDetails("Musandlovu1988@gmail.com", "k5CaS4LqpUdB6LvP", 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
                 Console.WriteLine(emailSend.SendEmail(new EmailDetails(mail,paspharse, 587, "smtp.gmail.com", "Musandlala@yahoo.com", "subjective subject", "hello body"), true, athd));
             }
             catch (Exception e)
